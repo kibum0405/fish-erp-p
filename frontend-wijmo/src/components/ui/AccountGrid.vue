@@ -38,6 +38,11 @@
         >
             <wj-flex-grid-filter :filterColumns="['RowHeader','accountName','representative','businessRegistrationNumber','address','industry','category','customerType',]" />
             <wj-flex-grid-cell-template cellType="RowHeader" v-slot="cell">{{cell.row.index + 1}}</wj-flex-grid-cell-template>
+            <wj-flex-grid-column binding="accountName" header="ItemId" width="2*" :isReadOnly="true" align="center">
+                <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
+                    <String v-model="cell.accountName" :editMode="editMode" />
+                </wj-flex-grid-cell-template>
+            </wj-flex-grid-column>
             <wj-flex-grid-column binding="accountName" header="거래처" width="2*" :isReadOnly="true" align="center" />
             <wj-flex-grid-column binding="representative" header="대표자" width="2*" :isReadOnly="true" align="center" />
             <wj-flex-grid-column binding="businessRegistrationNumber" header="사업자 번호" width="2*" :isReadOnly="true" align="center" />

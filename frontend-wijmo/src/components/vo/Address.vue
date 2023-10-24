@@ -21,24 +21,34 @@
             </div>
 
             <div v-if="!editMode">
-                <p style="font-family:sans-serif; font-weight:bold; font-size:15px">{{value.country }} / {{value.state }} {{value.city }}  {{value.street }} ({{value.zipcode }})</p>
-                <GmapMap
-                    class="mx-auto"
-                    :center="{lat:latitude, lng:longitude}"
-                    :zoom="10"
-                    map-type-id="terrain"
-                    style="width: 200px; height: 250px"
-                    >
-                    <GmapMarker
-                        :key="index"
-                        v-for="(m, index) in markers"
-                        :position="m.position"
-                        :clickable="true"
-                        :draggable="true"
-                        @click="center=m.position"
-                    />
-                </GmapMap>
-            
+                <span style="font-family:sans-serif; font-weight:bold; font-size:15px"></span>
+                <v-list-group
+                    :value="inList"
+                    @click="reSizeGrid"
+                >
+                    <template v-slot:activator>
+                        <v-list-item-title>{{value.country }} / {{value.state }} {{value.city }}  {{value.street }} ({{value.zipcode }})</v-list-item-title>
+                    </template>
+
+                    <v-list-item>
+                        <GmapMap
+                            class="mx-auto"
+                        :center="{lat:latitude, lng:longitude}"
+                        :zoom="10"
+                        map-type-id="terrain"
+                        style="width: 200px; height: 250px"
+                        >
+                            <GmapMarker
+                                :key="index"
+                                v-for="(m, index) in markers"
+                                :position="m.position"
+                                :clickable="true"
+                                :draggable="true"
+                                @click="center=m.position"
+                            />
+                        </GmapMap>
+                    </v-list-item>
+                </v-list-group>
             </div>
         </v-card-text>
     </div>
@@ -68,6 +78,7 @@
         data: () => ({
             latitude: 37.5666805,
             longitude: 126.9784147,
+            markers:[]
         }),
         created(){
             if(!this.value) {
